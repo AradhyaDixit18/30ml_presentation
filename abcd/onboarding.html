@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30ML+ Onboarding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; overflow-x: hidden; background-image: radial-gradient(circle at 10% 10%, rgba(240, 0, 184, 0.15) 0%, transparent 30%), radial-gradient(circle at 90% 80%, rgba(77, 77, 255, 0.15) 0%, transparent 30%); }
+        .text-gradient-neon { background-image: linear-gradient(to right, #F000B8, #4D4DFF); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .cta-button { background-image: linear-gradient(to right, #F000B8, #6C33FF); transition: transform 0.2s ease, box-shadow 0.2s ease; border-radius: 9999px; color: white; font-weight: bold; box-shadow: 0 4px 15px rgba(240, 0, 184, 0.4); }
+        .cta-button:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 6px 20px rgba(240, 0, 184, 0.6); }
+        .outline-button { background: transparent; border: 2px solid #6C33FF; color: #6C33FF; border-radius: 9999px; transition: all 0.2s ease; }
+        .outline-button:hover { background-color: #6C33FF; color: white; box-shadow: 0 0 15px #6C33FF; }
+        .nav-cta-button { background-color: #F000B8; color: white; border: 2px solid #F000B8; padding: 8px 16px; border-radius: 9999px; text-decoration: none; font-weight: 600; transition: all 0.2s ease-in-out; }
+        .nav-cta-button:hover { background-color: #6C33FF; border-color: #6C33FF; transform: scale(1.05); box-shadow: 0 0 10px #6C33FF; }
+        .form-input, .form-select, .form-textarea { background-color: rgba(26,26,26,0.7); border: 1px solid #444; border-radius: 8px; color: #fff; padding: 0.75rem 1rem; width: 100%; transition: border-color 0.2s, box-shadow 0.2s; }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #F000B8; box-shadow: 0 0 10px rgba(240, 0, 184, 0.5); }
+        .form-step { display: none; }
+        .form-step.active { display: block; animation: slideIn 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .form-step.exiting { animation: slideOut 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideOut { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(-30px); } }
+        .progress-bar-fill { background-image: linear-gradient(to right, #F000B8, #6C33FF); transition: width 0.5s ease-in-out; }
+        .step-indicator { color: #6b7280; transition: all 0.4s ease; }
+        .step-indicator.active { color: #F000B8; font-weight: 700; transform: scale(1.1); }
+        .upload-card { background-color: rgba(26,26,26,0.7); border: 2px dashed #444; border-radius: 12px; transition: all 0.3s ease; }
+        .upload-card.dragover { border-color: #F000B8; background-color: rgba(240, 0, 184, 0.1); transform: scale(1.02); }
+        .upload-card.has-file { border-color: #7FFF00; border-style: solid; }
+        #signature-pad { border: 2px dashed #444; border-radius: 12px; cursor: crosshair; background-color: #1a1a1a; }
+        .agreement-card { background-color: rgba(26,26,26,0.7); border: 1px solid #444; max-height: 200px; overflow-y: auto; }
+    </style>
+</head>
+<body class="bg-black">
+    <div class="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md">
+        <nav class="container mx-auto flex justify-between items-center py-4 px-6 max-w-7xl">
+            <a href="index.html" class="text-3xl font-black tracking-tighter text-white">30ML+</a>
+            <a href="credit.html" class="nav-cta-button text-sm">View Your ₹20k Offer</a>
+        </nav>
+    </div>
+
+    <div id="app-root" class="pt-24 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl w-full space-y-8">
+            <div class="text-center">
+                <h2 class="text-4xl font-extrabold text-gradient-neon">Welcome to the 30ML+ Family</h2>
+                <p class="mt-2 text-gray-400">Let's get your venue set up. Complete the steps below to get started.</p>
+            </div>
+
+            <div class="bg-black/50 backdrop-blur-xl p-8 md:p-12 rounded-2xl border border-gray-800 shadow-2xl">
+                <div id="stepper" class="flex justify-between items-center mb-8"><div class="step-indicator active" data-step="1">Info</div><div class="step-indicator" data-step="2">Compliance</div><div class="step-indicator" data-step="3">Setup</div><div class="step-indicator" data-step="4">Menu</div><div class="step-indicator" data-step="5">Banking</div><div class="step-indicator" data-step="6">Agreement</div></div>
+                <div class="w-full bg-gray-800 rounded-full h-1 mb-10"><div id="progress-bar" class="progress-bar-fill h-1 rounded-full" style="width: 0%;"></div></div>
+                
+                <form id="onboarding-form" class="space-y-6">
+                    <div id="step-1" class="form-step">
+                        <h3 class="text-2xl font-bold mb-6">1. Basic Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <input type="text" name="venue_name" placeholder="Venue Name" class="form-input">
+                            <select name="venue_type" class="form-select"><option>Select Venue Type</option><option>Club</option><option>Bar</option><option>Lounge</option><option>Restaurant</option></select>
+                            <textarea name="address" placeholder="Full Address + Pin code" class="form-textarea md:col-span-2" rows="2"></textarea>
+                            <input type="text" name="contact_person_1_name" placeholder="Contact Person 1 Name" class="form-input">
+                            <input type="tel" name="contact_person_1_phone" placeholder="Contact Person 1 Phone" class="form-input">
+                            <input type="email" name="contact_person_1_email" placeholder="Contact Person 1 Email" class="form-input md:col-span-2">
+                            <input type="text" name="contact_person_2_name" placeholder="Contact Person 2 (Optional)" class="form-input md:col-span-2">
+                        </div>
+                    </div>
+
+                    <div id="step-2" class="form-step">
+                        <h3 class="text-2xl font-bold mb-6">2. Compliance & Licenses</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6"><input type="text" name="liquor_license_number" placeholder="Liquor License Number" class="form-input"><input type="text" name="gst_number" placeholder="GST Number" class="form-input"><input type="text" name="fssai_number" placeholder="FSSAI Registration Number" class="form-input"><input type="text" name="pan_number" placeholder="PAN of Business Entity" class="form-input"></div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                            <div class="upload-card p-4 text-center"><label for="liquor_license_upload" class="cursor-pointer"><p class="font-semibold text-sm">Liquor License</p><p class="text-xs text-gray-400 mt-1 file-placeholder">Drag & Drop or Click</p><p class="file-name text-xs text-green-400 mt-1"></p><input type="file" name="liquor_license_file" id="liquor_license_upload" class="hidden"></label></div>
+                            <div class="upload-card p-4 text-center"><label for="gst_upload" class="cursor-pointer"><p class="font-semibold text-sm">GST Certificate</p><p class="text-xs text-gray-400 mt-1 file-placeholder">Drag & Drop or Click</p><p class="file-name text-xs text-green-400 mt-1"></p><input type="file" name="gst_file" id="gst_upload" class="hidden"></label></div>
+                            <div class="upload-card p-4 text-center"><label for="pan_upload" class="cursor-pointer"><p class="font-semibold text-sm">PAN Document</p><p class="text-xs text-gray-400 mt-1 file-placeholder">Drag & Drop or Click</p><p class="file-name text-xs text-green-400 mt-1"></p><input type="file" name="pan_file" id="pan_upload" class="hidden"></label></div>
+                        </div>
+                    </div>
+
+                    <div id="step-3" class="form-step">
+                        <h3 class="text-2xl font-bold mb-6">3. Venue Setup</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6"><input type="number" name="sitting_capacity" placeholder="Sitting Capacity (Total Pax)" class="form-input"><input type="number" name="table_count" placeholder="Number of Tables" class="form-input"><input type="number" name="avg_cover_charge" placeholder="Average Cover Charge (₹ per guest)" class="form-input md:col-span-2"></div>
+                        <div class="mt-6"><h4 class="font-semibold mb-2">Operating Hours (Day-wise)</h4><div class="space-y-2 text-gray-300"><div class="flex items-center gap-4"><span class="w-20">Monday:</span><input type="time" name="hours_mon_start" class="form-input"> to <input type="time" name="hours_mon_end" class="form-input"></div><div class="flex items-center gap-4"><span class="w-20">Tuesday:</span><input type="time" name="hours_tue_start" class="form-input"> to <input type="time" name="hours_tue_end" class="form-input"></div></div></div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                            <div class="upload-card p-4 text-center"><label for="layout_upload" class="cursor-pointer"><p class="font-semibold text-sm">Upload Table Layout</p><p class="text-xs text-gray-400 mt-1 file-placeholder">Image/2D plan</p><p class="file-name text-xs text-green-400 mt-1"></p><input type="file" name="layout_file" id="layout_upload" class="hidden"></label></div>
+                            <div class="upload-card p-4 text-center"><label for="venue_pics" class="cursor-pointer"><p class="font-semibold text-sm">Upload Venue Pictures</p><p class="text-xs text-gray-400 mt-1 file-placeholder">Min 3 photos</p><p class="file-name text-xs text-green-400 mt-1"></p><input type="file" name="venue_pictures" id="venue_pics" multiple class="hidden"></label></div>
+                        </div>
+                    </div>
+
+                    <div id="step-4" class="form-step">
+                        <h3 class="text-2xl font-bold mb-6">4. Menu & Inventory</h3>
+                        <div class="upload-card p-4 text-center mb-6"><label for="menu_upload" class="cursor-pointer"><p class="font-semibold">Upload Menu (PDF/CSV/Image)</p><p class="text-xs text-gray-400 mt-1 file-placeholder">The fastest way to get started</p><p class="file-name text-xs text-green-400 mt-1"></p><input type="file" name="menu_file" id="menu_upload" class="hidden"></label></div>
+                        <h4 class="font-semibold mb-4 text-center">Or Add Items Manually</h4>
+                        <div id="menu-items-container" class="space-y-4"><div class="grid grid-cols-4 gap-4"><input type="text" name="menu_item_name[]" placeholder="Item Name" class="form-input"><input type="text" name="menu_item_category[]" placeholder="Category" class="form-input"><input type="text" name="menu_item_size[]" placeholder="Size" class="form-input"><input type="number" name="menu_item_price[]" placeholder="Price (₹)" class="form-input"></div></div>
+                        <button type="button" id="add-menu-item" class="mt-4 text-sm text-pink-500 font-semibold hover:text-pink-400">+ Add Another Item</button>
+                    </div>
+                    
+                    <div id="step-5" class="form-step">
+                        <h3 class="text-2xl font-bold mb-6">5. Banking & Payout Info</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <input type="text" name="bank_account_holder" placeholder="Account Holder Name" class="form-input md:col-span-2">
+                            <input type="text" name="bank_account_number" placeholder="Bank Account Number" class="form-input"><input type="text" name="bank_ifsc_code" placeholder="IFSC Code" class="form-input">
+                            <div class="upload-card p-4 text-center md:col-span-2"><label for="cheque_upload" class="cursor-pointer"><p class="font-semibold text-sm">Upload Cancelled Cheque</p><p class="text-xs text-gray-400 mt-1 file-placeholder">For verification</p><p class="file-name text-xs text-green-400 mt-1"></p><input type="file" name="cheque_file" id="cheque_upload" class="hidden"></label></div>
+                        </div>
+                    </div>
+
+                    <div id="step-6" class="form-step">
+                        <h3 class="text-2xl font-bold mb-6">6. Agreement & Confirmation</h3>
+                        <div class="agreement-card p-4 rounded-lg mb-6 text-sm text-gray-300"><h4 class="font-bold text-white mb-2">Agreement Highlights</h4><ul class="list-disc list-inside space-y-1"><li>Revenue share terms</li><li>Brand visibility & promotions</li><li>Payments & settlements</li><li>Legal compliance responsibilities</li><li>Data use & privacy</li><li>Exit terms</li></ul></div>
+                        <div class="mb-4">
+                            <canvas id="signature-pad" class="w-full h-48 md:h-52"></canvas>
+                            <div class="text-right"><button type="button" id="clear-signature" class="text-xs text-gray-400 hover:text-white mt-1">Clear Signature</button></div>
+                        </div>
+                        <div class="flex items-center"><input id="terms-agree" name="terms_agreed" type="checkbox" class="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-700 bg-gray-800 rounded"><label for="terms-agree" class="ml-2 block text-sm text-gray-400">I have read and agree to the full terms and conditions.</label></div>
+                    </div>
+                </form>
+
+                <div class="mt-10 flex justify-between">
+                    <button id="prev-btn" class="outline-button py-2 px-6" style="display: none;">Previous</button>
+                    <button id="next-btn" class="cta-button py-2 px-8 ml-auto">Next</button>
+                    <button id="submit-btn" class="cta-button py-2 px-8" style="display: none;">Submit Application</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const steps = Array.from(document.querySelectorAll('.form-step'));
+            const stepperIndicators = document.querySelectorAll('.step-indicator');
+            const progressBar = document.getElementById('progress-bar');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            const form = document.getElementById('onboarding-form');
+            let currentStep = 0;
+            
+            // --- SIGNATURE PAD SCRIPT ---
+            const canvas = document.getElementById('signature-pad');
+            const ctx = canvas.getContext('2d');
+            let drawing = false;
+
+            function resizeCanvas() {
+                const rect = canvas.getBoundingClientRect();
+                // Ensure no zero dimensions
+                if (rect.width === 0 || rect.height === 0) return;
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+                ctx.strokeStyle = '#F000B8';
+                ctx.lineWidth = 2;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+            }
+            
+            // Resize on window resize
+            window.addEventListener('resize', resizeCanvas);
+            
+            // --- LOGIC TO HANDLE FORM STEPS ---
+            const updateFormState = (isNext) => {
+                const currentStepEl = steps[currentStep];
+                const targetStepIndex = isNext ? currentStep + 1 : currentStep - 1;
+                const targetStepEl = steps[targetStepIndex];
+
+                if (currentStepEl && targetStepEl) {
+                    currentStepEl.classList.add('exiting');
+                    currentStepEl.addEventListener('animationend', () => {
+                        currentStepEl.classList.remove('active', 'exiting');
+                        targetStepEl.classList.add('active');
+                        currentStep = targetStepIndex;
+                        updateUI();
+                        
+                        // --- FIX IS HERE ---
+                        // If the new active step is the signature step (index 5), resize the canvas now.
+                        if (targetStepIndex === 5) {
+                            // Use a tiny timeout to ensure the element is fully rendered before measuring.
+                            setTimeout(resizeCanvas, 50); 
+                        }
+
+                    }, { once: true });
+                }
+            };
+            
+            const updateUI = () => {
+                stepperIndicators.forEach((indicator, index) => indicator.classList.toggle('active', index === currentStep));
+                progressBar.style.width = `${(currentStep / (steps.length - 1)) * 100}%`;
+                prevBtn.style.display = currentStep > 0 ? 'inline-block' : 'none';
+                nextBtn.style.display = currentStep < steps.length - 1 ? 'inline-block' : 'none';
+                submitBtn.style.display = currentStep === steps.length - 1 ? 'inline-block' : 'none';
+            };
+
+            nextBtn.addEventListener('click', () => updateFormState(true));
+            prevBtn.addEventListener('click', () => updateFormState(false));
+            steps[0].classList.add('active');
+            updateUI();
+
+
+            // --- Other UI Logic (Uploads, etc.) ---
+            const uploadCards = document.querySelectorAll('.upload-card');
+            uploadCards.forEach(card => {
+                const input = card.querySelector('input[type="file"]');
+                const fileNameEl = card.querySelector('.file-name');
+                const placeholder = card.querySelector('.file-placeholder');
+                const updateCard = (files) => {
+                    if (files && files.length > 0) {
+                        fileNameEl.textContent = files.length > 1 ? `${files.length} files selected` : files[0].name;
+                        card.classList.add('has-file');
+                        placeholder.style.display = 'none';
+                    }
+                };
+                card.addEventListener('dragenter', (e) => { e.preventDefault(); card.classList.add('dragover'); });
+                card.addEventListener('dragover', (e) => { e.preventDefault(); });
+                card.addEventListener('dragleave', () => card.classList.remove('dragover'));
+                card.addEventListener('drop', (e) => { e.preventDefault(); card.classList.remove('dragover'); input.files = e.dataTransfer.files; updateCard(input.files); });
+                input.addEventListener('change', () => updateCard(input.files));
+            });
+
+            document.getElementById('add-menu-item').addEventListener('click', () => {
+                const container = document.getElementById('menu-items-container');
+                const newItemRow = document.createElement('div');
+                newItemRow.className = 'grid grid-cols-4 gap-4';
+                newItemRow.innerHTML = `<input type="text" name="menu_item_name[]" placeholder="Item Name" class="form-input"><input type="text" name="menu_item_category[]" placeholder="Category" class="form-input"><input type="text" name="menu_item_size[]" placeholder="Size" class="form-input"><input type="number" name="menu_item_price[]" placeholder="Price (₹)" class="form-input">`;
+                container.appendChild(newItemRow);
+            });
+
+            // --- SIGNATURE PAD DRAWING LOGIC ---
+            const getPos = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                let clientX, clientY;
+                if (e.touches && e.touches.length > 0) {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                } else {
+                    clientX = e.clientX;
+                    clientY = e.clientY;
+                }
+                return { x: clientX - rect.left, y: clientY - rect.top };
+            };
+            
+            const startDrawing = (e) => {
+                e.preventDefault();
+                drawing = true;
+                const pos = getPos(e);
+                ctx.beginPath();
+                ctx.moveTo(pos.x, pos.y);
+            };
+
+            const draw = (e) => {
+                if (!drawing) return;
+                e.preventDefault();
+                const pos = getPos(e);
+                ctx.lineTo(pos.x, pos.y);
+                ctx.stroke();
+            };
+
+            const stopDrawing = () => { drawing = false; };
+
+            // Event Listeners
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+            canvas.addEventListener('touchstart', startDrawing, { passive: false });
+            canvas.addEventListener('touchmove', draw, { passive: false });
+            canvas.addEventListener('touchend', stopDrawing);
+
+            document.getElementById('clear-signature').addEventListener('click', () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            });
+            
+            // --- FORM SUBMISSION ---
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                if (!isCanvasEmpty(canvas)) {
+                     const signatureData = canvas.toDataURL('image/png');
+                     formData.append('signature_image', signatureData);
+                } else {
+                    formData.append('signature_image', 'empty');
+                }
+                const data = Object.fromEntries(formData.entries());
+                console.log('Form Submitted. All Data Captured:', data);
+                alert('Application Submitted! Check the console for all captured data.');
+            });
+
+            function isCanvasEmpty(cnv) {
+                const blank = document.createElement('canvas');
+                blank.width = cnv.width;
+                blank.height = cnv.height;
+                return cnv.toDataURL() === blank.toDataURL();
+            }
+        });
+    </script>
+</body>
+</html>
